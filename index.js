@@ -27,10 +27,24 @@ console.log(md.inline.ruler.getRules(""));
 // it's a generally a formatting thing. sure, most game terms should be a span anyway so they can show up most places. 
 // 
 
-md.inline.ruler.after("escape", "special-term", function special_term(state) {
-    // because { is already a control character, escape will work magically
-    var s = "";
+md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
+
+    // when we hit the closing } skip it.
+    if (state.src.charCodeAt(state.pos) === 0x7D) {
+        return false;
+    }
+
+    // start at pos for the first { and determine if this is level 1, 2, or 3. 
+    // four is not special term.
+    // then find the matching number of closing }. 
+    // if we can't find them this is not a special term
+    // then we 
+
     console.log(state.src);
+
+
+    // trick is to match the closing braces too. otherwise we'll not do anything
+
 });
 
 var file = fs.readFileSync("./test.md");
