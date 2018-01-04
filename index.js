@@ -28,12 +28,15 @@ console.log(md.inline.ruler.getRules(""));
 // 
 
 md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
+
+
     const openBrace = 0x7B;
     const closeBrace = 0x7D;
 
     var firstCode = state.src.charCodeAt(state.pos);
     var secondCode = state.src.charCodeAt(state.pos + 1);
     var thirdCode = state.src.charCodeAt(state.pos + 2);
+    var fourthCode = state.src.charCodeAt(state.pos + 3);
 
     // when we hit closing }'s skip them.
     if (firstCode === closeBrace) {
@@ -42,7 +45,7 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
 
     // determine what level of special term this is
     if (firstCode === openBrace) {
-        level = 1; 
+        level = 1;
     }
     if (secondCode === openBrace) {
         level = 2;
@@ -50,8 +53,13 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
     if (thirdCode === openBrace) {
         level = 3;
     }
+    if (fourthCode === openBrace) {
 
-    
+        return false;
+        // need to somehow mark this because otherwise it will trigger 
+    }
+
+
 
     // start at pos for the first { and determine if this is level 1, 2, or 3. 
     // four is not special term.
@@ -61,7 +69,7 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
 
 
 
-    console.log(state.src);
+    console.log(level + ": " + state.src);
 
 
     // trick is to match the closing braces too. otherwise we'll not do anything
