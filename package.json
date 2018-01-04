@@ -1,0 +1,21 @@
+{
+  "name": "markdownproj",
+  "version": "1.0.0",
+  "description": "just some markdown and a gulp compile task to testout markdown-it rules tweaks",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-count-stat": "^1.0.0",
+    "gulp-shell": "^0.6.5",
+    "gulp-tap": "^1.0.1",
+    "gulp-util": "^3.0.8",
+    "markdown-it": "^8.4.0",
+    "markdown-it-deflist": "^2.0.3"
+  }
+}
