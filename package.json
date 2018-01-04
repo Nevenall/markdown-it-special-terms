@@ -1,5 +1,5 @@
 {
-  "name": "markdownproj",
+  "name": "markdown-it-special-terms",
   "version": "1.0.0",
   "description": "just some markdown and a gulp compile task to testout markdown-it rules tweaks",
   "main": "index.js",
