@@ -37,6 +37,8 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
     var secondCode = state.src.charCodeAt(state.pos + 1);
     var thirdCode = state.src.charCodeAt(state.pos + 2);
 
+    var regEx = null;
+
     // when we hit closing }'s skip them.
     if (firstCode === closeBrace) {
         return false;
@@ -45,20 +47,23 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
     // determine what level of special term this is
     if (firstCode === openBrace) {
         level = 1;
+        regEx = /{(.|\s)*}/;
     }
     if (secondCode === openBrace) {
         level = 2;
+        regEx = /{{(.|\s)*}}/;
     }
     if (thirdCode === openBrace) {
         level = 3;
+        regEx = /{{{(.|\s)*}}}/;
     }
 
     // if we find the expected closing braces
     // skip level number of tokens
 
-    for (var i; i < level; ++i) {
-        state.md.inline.skipToken(state);
-    }
+    // for (var i; i < level; ++i) {
+    //     state.md.inline.skipToken(state);
+    // }
 
 
     // start at pos for the first { and determine if this is level 1, 2, or 3. 
@@ -71,6 +76,12 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
     // essencially you are a third level term who's content is {term}
     // that might be more like what we expect
     // 
+
+    // Match braces
+    // start at the end, go backwards and find the matching number of braces
+
+    
+    
 
 
     console.log(level + ": " + state.src);
