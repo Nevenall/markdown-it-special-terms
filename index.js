@@ -2,7 +2,6 @@
 'use strict';
 
 var MarkdownIt = require('markdown-it');
-var del = require('del');
 var fs = require('fs');
 
 var md = new MarkdownIt({
@@ -62,7 +61,7 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
 
     // get the content which is from the last openbrace to the last index of closing
     if (indexOfClosingBrace > 0 && indexOfClosingBrace <= state.posMax) {
-        
+
         var content = state.src.substring(start + level, indexOfClosingBrace);
     }
 
