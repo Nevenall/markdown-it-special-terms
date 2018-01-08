@@ -1,4 +1,6 @@
 
+'use strict';
+
 var MarkdownIt = require('markdown-it');
 var del = require('del');
 var fs = require('fs');
@@ -29,7 +31,6 @@ console.log(md.inline.ruler.getRules(""));
 
 md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
 
-
     const openBrace = 0x7B;
     const closeBrace = 0x7D;
 
@@ -37,26 +38,32 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
     var secondCode = state.src.charCodeAt(state.pos + 1);
     var thirdCode = state.src.charCodeAt(state.pos + 2);
 
-    var regEx = null;
 
     // when we hit closing }'s skip them.
     if (firstCode === closeBrace) {
         return false;
     }
 
+    var level = 1;
+    var indexOfClosingBrace = 0;
+
     // determine what level of special term this is
     if (firstCode === openBrace) {
         level = 1;
-        regEx = /{(.|\s)*}/;
+        indexOfClosingBrace = state.src.lastIndexOf("}");
     }
     if (secondCode === openBrace) {
         level = 2;
-        regEx = /{{(.|\s)*}}/;
+        indexOfClosingBrace = state.src.lastIndexOf("}}");
     }
     if (thirdCode === openBrace) {
         level = 3;
-        regEx = /{{{(.|\s)*}}}/;
+        indexOfClosingBrace = state.src.lastIndexOf("}}}");
     }
+
+
+
+
 
     // if we find the expected closing braces
     // skip level number of tokens
@@ -80,11 +87,22 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
     // Match braces
     // start at the end, go backwards and find the matching number of braces
 
-    
-    
+
+    // while ((regEx = regex.exec(str)) !== null) {
+    //     // This is necessary to avoid infinite loops with zero-width matches
+    //     if (regEx.index === regex.lastIndex) {
+    //         regex.lastIndex++;
+    //     }
+
+    //     // The result can be accessed through the `regEx`-variable.
+    //     regEx.forEach((match, groupIndex) => {
+    //         console.log(`Found match, group ${groupIndex}: ${match}`);
+    //     });
+    // }
 
 
-    console.log(level + ": " + state.src);
+
+    console.log(level + ": " + state.src + " :" + indexOfClosingBrace);
 
 
     // trick is to match the closing braces too. otherwise we'll not do anything
