@@ -1,4 +1,3 @@
-
 'use strict';
 
 var MarkdownIt = require('markdown-it');
@@ -12,12 +11,7 @@ var md = new MarkdownIt({
 });
 
 // console.log(md.core.ruler.getRules(""));
-console.log(md.inline.ruler.getRules(""));
-
-// md.core.ruler.push("special-term", function special_term_replace(state) {
-//     var s = "";
-//     console.log(state.tokens);
-// });
+//console.log(md.inline.ruler.getRules(""));
 
 // so, we look for unescaped {} and if we find one, we push a new token on the stack
 // this should come before emphasis because a game term might be wrapped in a thing? 
