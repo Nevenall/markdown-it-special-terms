@@ -30,17 +30,16 @@ console.log(md.inline.ruler.getRules(""));
 // 
 
 md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
-
     const openBrace = 0x7B;
     const closeBrace = 0x7D;
 
-    var firstCode = state.src.charCodeAt(state.pos);
-    var secondCode = state.src.charCodeAt(state.pos + 1);
-    var thirdCode = state.src.charCodeAt(state.pos + 2);
-
+    var start = state.src.indexOf('{');
+    var firstCode = state.src.charCodeAt(start);
+    var secondCode = state.src.charCodeAt(start + 1);
+    var thirdCode = state.src.charCodeAt(start + 2);
 
     // when we hit closing }'s skip them.
-    if (firstCode === closeBrace) {
+    if (state.src.charCodeAt(state.pos) === closeBrace) {
         return false;
     }
 
@@ -61,6 +60,11 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
         indexOfClosingBrace = state.src.lastIndexOf("}}}");
     }
 
+    // get the content which is from the last openbrace to the last index of closing
+    if (indexOfClosingBrace > 0 && indexOfClosingBrace <= state.posMax) {
+        
+        var content = state.src.substring(start + level, indexOfClosingBrace);
+    }
 
 
 
@@ -88,25 +92,9 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
     // start at the end, go backwards and find the matching number of braces
 
 
-    // while ((regEx = regex.exec(str)) !== null) {
-    //     // This is necessary to avoid infinite loops with zero-width matches
-    //     if (regEx.index === regex.lastIndex) {
-    //         regex.lastIndex++;
-    //     }
-
-    //     // The result can be accessed through the `regEx`-variable.
-    //     regEx.forEach((match, groupIndex) => {
-    //         console.log(`Found match, group ${groupIndex}: ${match}`);
-    //     });
-    // }
 
 
-
-    console.log(level + ": " + state.src + " :" + indexOfClosingBrace);
-
-
-    // trick is to match the closing braces too. otherwise we'll not do anything
-
+    console.log(`level ${level} : ${state.src} : ${content}`);
 });
 
 var file = fs.readFileSync("./test.md");
