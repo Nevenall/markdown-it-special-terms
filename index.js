@@ -30,14 +30,14 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
     var firstCode = state.src.charCodeAt(start);
     var secondCode = state.src.charCodeAt(start + 1);
     var thirdCode = state.src.charCodeAt(start + 2);
+    var level = 1;
+    var indexOfClosingBrace = 0;
+    var content = null;
 
     // when we hit closing }'s skip them.
     if (state.src.charCodeAt(state.pos) === closeBrace) {
         return false;
     }
-
-    var level = 1;
-    var indexOfClosingBrace = 0;
 
     // determine what level of special term this is
     if (firstCode === openBrace) {
@@ -55,9 +55,9 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
 
     // get the content which is from the last openbrace to the last index of closing
     if (indexOfClosingBrace > 0 && indexOfClosingBrace <= state.posMax) {
-
-        var content = state.src.substring(start + level, indexOfClosingBrace);
+        content = state.src.substring(start + level, indexOfClosingBrace);
     }
+
 
 
 
