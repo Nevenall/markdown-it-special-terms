@@ -13,8 +13,10 @@ function subscript(state, silent) {
         max = state.posMax,
         start = state.pos;
 
+    // only when not embedded, for example, in a header
     if (state.src.charCodeAt(start) !== 0x7E/* ~ */) { return false; }
     if (silent) { return false; } // don't run any pairs in validation mode
+    // Skip empty tildes
     if (start + 2 >= max) { return false; }
 
     state.pos = start + 1;

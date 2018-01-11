@@ -30,4 +30,4 @@ Not a special term}
 
 {{this is not a special term}
 
-code
+These are empty braces {}
