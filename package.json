@@ -1,13 +1,26 @@
 {
   "name": "markdown-it-special-terms",
   "version": "1.0.0",
-  "description": "just some markdown and an index.js to testout markdown-it rules tweaks",
+  "description": "Adds parsing of {special term} with custom markup.",
+  "keywords": [
+    "markdown-it-plugin",
+    "markdown-it",
+    "markdown"
+  ],
+  "homepage": "https://github.com/Nevenall/markdown-it-special-terms",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Nevenall/markdown-it-special-terms.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Nevenall/markdown-it-special-terms/issues"
+  },
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Dan Behlings",
   "devDependencies": {
     "markdown-it": "^8.4.0"
   }
