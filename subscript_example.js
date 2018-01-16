@@ -15,29 +15,37 @@ function subscript(state, silent) {
 
     // only when not embedded, for example, in a header
     if (state.src.charCodeAt(start) !== 0x7E/* ~ */) { return false; }
+
     if (silent) { return false; } // don't run any pairs in validation mode
-    // Skip empty tildes
+
+    // Skip empty tildes?
     if (start + 2 >= max) { return false; }
 
+    // start at the first non ~ character
     state.pos = start + 1;
 
+    // check for the matching ~
     while (state.pos < max) {
         if (state.src.charCodeAt(state.pos) === 0x7E/* ~ */) {
             found = true;
             break;
         }
 
+        // there is a match so we skip the token, not sure what that does.
         state.md.inline.skipToken(state);
     }
 
+    // if there's no matching end ~, reset the state.pos, and return.
     if (!found || start + 1 === state.pos) {
         state.pos = start;
         return false;
     }
 
+
     content = state.src.slice(start + 1, state.pos);
 
     // don't allow unescaped spaces/newlines inside
+    // check content
     if (content.match(/(^|[^\\])(\\\\)*\s/)) {
         state.pos = start;
         return false;

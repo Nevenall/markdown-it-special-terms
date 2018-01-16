@@ -30,7 +30,7 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
     var firstCode = state.src.charCodeAt(start);
     var secondCode = state.src.charCodeAt(start + 1);
     var thirdCode = state.src.charCodeAt(start + 2);
-    var level = 1;
+    var level = 0;
     var indexOfClosingBrace = 0;
     var content = null;
 
@@ -57,6 +57,7 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
     if (indexOfClosingBrace > 0 && indexOfClosingBrace <= state.posMax) {
         content = state.src.substring(start + level, indexOfClosingBrace);
     }
+
 
 
 
