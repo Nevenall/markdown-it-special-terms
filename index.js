@@ -55,7 +55,21 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
 
     // get the content which is from the last openbrace to the last index of closing
     if (indexOfClosingBrace > 0 && indexOfClosingBrace <= state.posMax) {
+
         content = state.src.substring(start + level, indexOfClosingBrace);
+
+        // the content of special terms are treated as literals 
+        // unless it's empty, then we don't do the thing. 
+
+        // if (content === "") {
+        //     var s = "";
+        //     // Should we replace empty content? or leave it? Would it be strange if we didn't? 
+
+        // }   
+
+
+        token = state.push('special_open', )
+
     }
 
 
