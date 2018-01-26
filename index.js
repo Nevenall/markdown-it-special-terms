@@ -68,7 +68,16 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
         // }   
 
 
-        token = state.push('special_open', )
+        var token = state.push('special_term_1_open', '', 1);
+        token.markup = '{';
+
+        token = state.push('text', '', 0);
+        token.markup = content;
+
+        token = state.push('special_term_close', '', -1);
+        token.markup = '}';
+
+
 
     }
 
@@ -104,6 +113,21 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
 
     console.log(`level ${level} : ${state.src} : ${content}`);
 });
+
+md.renderer.rules["special_term_1_open"] = function (tokens, idx, options, env, renderer) {
+    return "<span class='special-term-1'>";
+}
+
+md.renderer.rules["special_term_2_open"] = function (tokens, idx, options, env, renderer) {
+    return "<span class='special-term-2'>";
+}
+md.renderer.rules["special_term_3_open"] = function (tokens, idx, options, env, renderer) {
+    return "<span class='special-term-3'>";
+}
+
+md.renderer.rules["special_term_close"] = function (tokens, idx, options, env, renderer) {
+    return "</span>";
+}
 
 var file = fs.readFileSync("./test.md");
 var text = file.toString();
