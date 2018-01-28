@@ -6,7 +6,7 @@
 
 {{{Plain level 3 term}}}
 
-{{{{four is not a special term}}}}
+{{{{four is a term with escaped braces}}}}
 
 **{strong term}**
 
@@ -21,12 +21,12 @@
 \{escaped with a newline
 how does this parse?\}
 
-{what about multi-line text?
-could be a special term. }
+{multi-line text 
+can also be a special term.}
 
-{new paragraph runs?
+{but not if it has
 
-Not a special term}
+a paragraph break in it}
 
 {{this is not a special term}
 
