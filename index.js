@@ -2,7 +2,8 @@
 
 var MarkdownIt = require('markdown-it');
 var fs = require('fs');
-var sub = require('./subscript_example')
+
+var sub = require('./backticks')
 
 var md = new MarkdownIt({
     html: true,
@@ -24,17 +25,17 @@ var md = new MarkdownIt({
 // it's a generally a formatting thing. sure, most game terms should be a span anyway so they can show up most places. 
 // 
 
- // todo - increment state.pos and call skip token the correct number of times. 
-        // then set the pos and posMax to braket the content of the special term
-        // for when we push the new tokens. 
-        // then set them to be past the special term just before we return. 
+// todo - increment state.pos and call skip token the correct number of times. 
+// then set the pos and posMax to braket the content of the special term
+// for when we push the new tokens. 
+// then set them to be past the special term just before we return. 
 
-        // 
-        // Depending on the level, we add the appropriate tokens.
+// 
+// Depending on the level, we add the appropriate tokens.
 
-        // Skip token, i guess this is right? Or do we have to do it once per level?
+// Skip token, i guess this is right? Or do we have to do it once per level?
 
-md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
+md.inline.ruler.after("emphasis", "special-term", function special_term(state, silent) {
     const openBrace = 0x7B;
     const closeBrace = 0x7D;
 
@@ -75,13 +76,13 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state) {
         state.pos = start + level;
         state.posMax = indexOfClosingBrace;
 
-        while(state.pos < originalMax) {
+        while (state.pos < originalMax) {
             // if the current pos character is 
             state.md.inline.skipToken(state);
         }
 
         // skip token will advance state.pos, which we undo
-       // make sure skip token doesn't advance beyond max?
+        // make sure skip token doesn't advance beyond max?
         state.pos = start + level;
         state.posMax = indexOfClosingBrace;
 
@@ -153,12 +154,9 @@ md.renderer.rules["special_term_3_close"] = function (tokens, idx, options, env,
 }
 
 
- var file = fs.readFileSync("./test.md");
+// var file = fs.readFileSync("./test.md");
 
-// var file = fs.readFileSync("./sub_test.md");
-
-
-
+var file = fs.readFileSync("./backtick_tests.md");
 
 md.use(sub);
 
