@@ -30,4 +30,6 @@ a paragraph break in it}
 
 {{this is not a special term}
 
+{this is also not a special term}}
+
 These are empty braces {}

@@ -39,20 +39,21 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state, s
     const openBrace = 0x7B;
     const closeBrace = 0x7D;
 
-    var start = state.src.indexOf('{');
-    var firstCode = state.src.charCodeAt(start);
-    var secondCode = state.src.charCodeAt(start + 1);
-    var thirdCode = state.src.charCodeAt(start + 2);
-    var level = 0;
-    var indexOfClosingBrace = 0;
-    var content = null;
     var originalPosition = state.pos;
     var originalMax = state.posMax;
 
-    // when we hit closing }'s skip them.
-    if (state.src.charCodeAt(state.pos) === closeBrace) {
+    var start = state.pos;
+    if (state.src.charCodeAt(start) !== openBrace) {
         return false;
     }
+
+    var firstCode = state.src.charCodeAt(start);
+    var secondCode = state.src.charCodeAt(start + 1);
+    var thirdCode = state.src.charCodeAt(start + 2);
+
+    var level = 0;
+    var indexOfClosingBrace = 0;
+    var content = null;
 
     // determine what level of special term this is
     if (firstCode === openBrace) {
@@ -69,22 +70,9 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state, s
     }
 
     // get the content which is from the last openbrace to the last index of closing
-    if (indexOfClosingBrace > 0 && indexOfClosingBrace <= state.posMax) {
+    if (indexOfClosingBrace > 0) {
 
         content = state.src.slice(start + level, indexOfClosingBrace);
-
-        state.pos = start + level;
-        state.posMax = indexOfClosingBrace;
-
-        while (state.pos < originalMax) {
-            // if the current pos character is 
-            state.md.inline.skipToken(state);
-        }
-
-        // skip token will advance state.pos, which we undo
-        // make sure skip token doesn't advance beyond max?
-        state.pos = start + level;
-        state.posMax = indexOfClosingBrace;
 
         switch (level) {
             case 1:
@@ -120,14 +108,17 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state, s
             default:
                 break;
         }
+
+        console.log(`level ${level} : ${state.src} : ${content}`);
+
+        state.pos = indexOfClosingBrace + 1;
+        return true;
+
     }
-
-    state.pos = indexOfClosingBrace + 1;
-    state.posMax = originalMax;
-
 
 
     console.log(`level ${level} : ${state.src} : ${content}`);
+    return false;
 });
 
 md.renderer.rules["special_term_1_open"] = function (tokens, idx, options, env, renderer) {
@@ -154,15 +145,16 @@ md.renderer.rules["special_term_3_close"] = function (tokens, idx, options, env,
 }
 
 
-// var file = fs.readFileSync("./test.md");
+var file = fs.readFileSync("./test.md");
 
-var file = fs.readFileSync("./backtick_tests.md");
-
-md.use(sub);
+// var file = fs.readFileSync("./backtick_tests.md");
+// md.use(sub);
 
 
 var text = file.toString();
 
-var result = md.render(text);
+// var result = md.render(text);
+
+var result = md.render("{special term}");
 
 console.log(result);

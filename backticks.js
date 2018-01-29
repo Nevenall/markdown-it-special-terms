@@ -24,6 +24,7 @@ module.exports = function backtick(state, silent) {
 
         while (matchEnd < max && state.src.charCodeAt(matchEnd) === 0x60/* ` */) { matchEnd++; }
 
+        // same number of closing tokens
         if (matchEnd - matchStart === marker.length) {
             if (!silent) {
                 token = state.push('code_inline', 'code', 0);
