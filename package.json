@@ -1,7 +1,7 @@
 {
   "name": "markdown-it-special-terms",
   "version": "1.0.0",
-  "description": "Adds parsing of {special term} with custom markup.",
+  "description": "Plugin to add parsing of text contained in {curly} braces.",
   "keywords": [
     "markdown-it-plugin",
     "markdown-it",
