@@ -28,8 +28,8 @@ can also be a special term.}
 
 a paragraph break in it}
 
-{{this is not a special term}
+{{this gets parsed as a level 1 term}
 
-{this is also not a special term}}
+{this also gets parsed as a level 1 term}}
 
 These are empty braces {}

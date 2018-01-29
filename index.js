@@ -13,28 +13,6 @@ var md = new MarkdownIt({
 });
 
 
-// console.log(md.core.ruler.getRules(""));
-//console.log(md.inline.ruler.getRules(""));
-
-// so, we look for unescaped {} and if we find one, we push a new token on the stack
-// this should come before emphasis because a game term might be wrapped in a thing? 
-// _{game term}_ depending on what the gameterm syntax is exactly. this might be normal, or a might be redundant. 
-// But, {_term_} will not respect the italics inside the special term markers. That's what we want. 
-// So does that mean it should go before or after emphasis?
-// game term can totally be in a header though
-// it's a generally a formatting thing. sure, most game terms should be a span anyway so they can show up most places. 
-// 
-
-// todo - increment state.pos and call skip token the correct number of times. 
-// then set the pos and posMax to braket the content of the special term
-// for when we push the new tokens. 
-// then set them to be past the special term just before we return. 
-
-// 
-// Depending on the level, we add the appropriate tokens.
-
-// Skip token, i guess this is right? Or do we have to do it once per level?
-
 md.inline.ruler.after("emphasis", "special-term", function special_term(state, silent) {
     const openBrace = 0x7B;
     const closeBrace = 0x7D;
@@ -80,7 +58,7 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state, s
                 token.markup = '{';
 
                 token = state.push('text', '', 0);
-                token.markup = content;
+                token.content = content;
 
                 token = state.push('special_term_1_close', '', -1);
                 token.markup = '}';
@@ -90,7 +68,7 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state, s
                 token.markup = '{{';
 
                 token = state.push('text', '', 0);
-                token.markup = content;
+                token.content = content;
 
                 token = state.push('special_term_2_close', '', -1);
                 token.markup = '}}';
@@ -100,7 +78,7 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state, s
                 token.markup = '{{{';
 
                 token = state.push('text', '', 0);
-                token.markup = content;
+                token.content = content;
 
                 token = state.push('special_term_3_close', '', -1);
                 token.markup = '}}}';
@@ -109,15 +87,10 @@ md.inline.ruler.after("emphasis", "special-term", function special_term(state, s
                 break;
         }
 
-        console.log(`level ${level} : ${state.src} : ${content}`);
-
-        state.pos = indexOfClosingBrace + 1;
+        state.pos = indexOfClosingBrace + level;
         return true;
-
     }
 
-
-    console.log(`level ${level} : ${state.src} : ${content}`);
     return false;
 });
 
@@ -155,6 +128,6 @@ var text = file.toString();
 
 // var result = md.render(text);
 
-var result = md.render("{special term}");
+var result = md.render(text);
 
 console.log(result);
