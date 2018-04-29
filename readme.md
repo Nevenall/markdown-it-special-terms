@@ -12,12 +12,7 @@
 var MarkdownIt = require('markdown-it');
 var specialterms = require('markdown-it-special-terms')
 
-var md = new MarkdownIt({
-   html: true,
-   xhtmlOut: true,
-   breaks: true,
-   typographer: true
-});
+var md = new MarkdownIt();
 
 md.use(specialterms);
 
@@ -38,13 +33,23 @@ renders as:
 <p><span class='special-term-1'>Level 1 Special Term</span></p>
 <p><span class='special-term-2'>Level 2 Special Term</span></p>
 <p><span class='special-term-3'>Level 3 Special Term</span></p>
-
 ```
 
 ## Options
 
-Allows you to specifiy the opening and closing content. 
+The options object allows you to specifiy custom opening and closing tags. 
 
 ``` javascript
-md.use(specialterms, )
+md.use(specialterms, {
+   open_1: "<span class='game-term'>",
+   close_1: "</span>",
+   open_2: "<aside class='callout'>",
+   close_2: "</aside>",
+   open_3: "<div class='stat-block'>",
+   close_3: "</div>"
+});
 ```
+
+## Future Improvements
+
+Allow the rendering of {} within a {{}} or {{{}}} block.
