@@ -2,21 +2,32 @@
 
   Have a word or phrase in your markdown you'd like to wrap with custom styling?
 
-  This Markdown-it plugin allows text wrapped in {curly braces} to be rendered in a `<span class="special-term-1">` element.
+  This Markdown-it plugin allows you provide custom html for rendering text wrapped in {curly braces}.
+  
+  The default is html is a `<span class="special-term-1">` element.
 
 ## Usage
 
-  Wrap text in one, two, or three curly braces to render that text in a `<span>`.
+``` javascript
+var MarkdownIt = require('markdown-it');
+var specialterms = require('markdown-it-special-terms')
 
-``` markdown
+var md = new MarkdownIt({
+   html: true,
+   xhtmlOut: true,
+   breaks: true,
+   typographer: true
+});
 
-# This is a header containing a {special term}
+md.use(specialterms);
+
+md.render(`# This is a header containing a {special term}
 
 {Level 1 Special Term}
 
 {{Level 2 Special Term}}
 
-{{{Level 3 Special Term}}}
+{{{Level 3 Special Term}}}`);
 
 ```
 
@@ -30,6 +41,10 @@ renders as:
 
 ```
 
-## Future Plans
+## Options
 
-In the future you will be able to specify the exact html for each level of special term.
+Allows you to specifiy the opening and closing content. 
+
+``` javascript
+md.use(specialterms, )
+```

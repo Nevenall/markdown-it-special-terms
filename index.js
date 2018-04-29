@@ -1,7 +1,10 @@
 'use strict';
 
-module.exports = function special_term_plugin(md) {
+module.exports = function special_term_plugin(md, options) {
+
+
    md.inline.ruler.after('emphasis', 'special-term', function special_term(state, silent) {
+
       const openBrace = 0x7B;
       const closeBrace = 0x7D;
 
@@ -82,27 +85,38 @@ module.exports = function special_term_plugin(md) {
       return false;
    });
 
+   options = options || {};
+
+   var open_1 = options.open_1 || "<span class='special-term-1'>";
+   var close_1 = options.close_1 || "</span>";
+
+   var open_2 = options.open_2 || "<span class='special-term-2'>";
+   var close_2 = options.close_2 || "</span>";
+
+   var open_3 = options.open_3 || "<span class='special-term-3'>";
+   var close_3 = options.close_3 || "</span>";
+
    md.renderer.rules["special_term_1_open"] = function(tokens, idx, options, env, renderer) {
-      return "<span class='special-term-1'>";
+      return open_1;
    }
 
    md.renderer.rules["special_term_2_open"] = function(tokens, idx, options, env, renderer) {
-      return "<span class='special-term-2'>";
+      return open_2;
    }
    md.renderer.rules["special_term_3_open"] = function(tokens, idx, options, env, renderer) {
-      return "<span class='special-term-3'>";
+      return open_3;
    }
 
    md.renderer.rules["special_term_1_close"] = function(tokens, idx, options, env, renderer) {
-      return "</span>";
+      return close_1;
    }
 
    md.renderer.rules["special_term_2_close"] = function(tokens, idx, options, env, renderer) {
-      return "</span>";
+      return close_2;
    }
 
    md.renderer.rules["special_term_3_close"] = function(tokens, idx, options, env, renderer) {
-      return "</span>";
+      return close_3;
    }
 
 };
