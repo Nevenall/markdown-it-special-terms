@@ -33,3 +33,5 @@ a paragraph break in it}
 {this also gets parsed as a level 1 term}}
 
 These are empty braces {}
+
+A sentence with {two} different {terms} should also parse

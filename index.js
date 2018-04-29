@@ -24,7 +24,11 @@ module.exports = function special_term_plugin(md) {
         // determine what level of special term this is
         if (firstCode === openBrace) {
             level = 1;
+            // find the next open brace, if there is one
+            
             indexOfClosingBrace = state.src.lastIndexOf("}");
+            
+            // the last } before the first {
         }
         if (secondCode === openBrace) {
             level = 2;
