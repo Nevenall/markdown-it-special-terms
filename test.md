@@ -35,3 +35,5 @@ a paragraph break in it}
 These are empty braces {}
 
 A sentence with {two} different {terms} should also parse
+
+A more complex block like {this{should be a level term}}

@@ -16,14 +16,7 @@ var file = fs.readFileSync("./test.md");
 
 var text = file.toString();
 
-var other = `# This is a header containing a {special term}
-
-{Level 1 Special Term}
-
-{{Level 2 Special Term}}
-
-{{{Level 3 Special Term}}}`;
-
+var other = `A {sentence} with two special {terms}.`;
 
 var result = md.render(text);
 
