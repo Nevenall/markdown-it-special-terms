@@ -37,7 +37,7 @@ renders as:
 
 ## Options
 
-The options object allows you to specifiy custom opening and closing tags. 
+The options object allows you to specify custom opening and closing tags. 
 
 ``` javascript
 md.use(specialterms, {
