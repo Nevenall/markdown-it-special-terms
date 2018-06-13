@@ -2,9 +2,9 @@
 
   Have a word or phrase in your markdown you'd like to wrap with custom styling?
 
-  This Markdown-it plugin allows you provide custom html for rendering text wrapped in {curly braces}.
+  This Markdown-it plugin allows you provide custom html for text wrapped in {curly braces}.
   
-  The default is html is a `<span class="special-term-1">` element.
+  The default html is a `<span class="special-term-1">` element.
 
 ## Usage
 
@@ -49,7 +49,3 @@ md.use(specialterms, {
    close_3: "</div>"
 });
 ```
-
-## Future Improvements
-
-Allow the rendering of {} within a {{}} or {{{}}} block.
