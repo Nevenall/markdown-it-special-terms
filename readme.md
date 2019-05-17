@@ -49,3 +49,6 @@ md.use(specialterms, {
    close_3: "</div>"
 });
 ```
+## Future
+
+Use \term\ as another special term. or /term/ as another special marker. I think I like forward slash better. //term// ///triple slash special term///
